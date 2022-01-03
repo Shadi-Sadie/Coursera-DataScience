@@ -1,2 +1,3 @@
 # Coursera-DataScience
-Contains John Hopkins Data Science Specialization projects
+Contains Johns Hopkins Data Science Specialization projects
+
