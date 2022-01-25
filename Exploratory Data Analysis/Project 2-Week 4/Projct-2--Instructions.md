@@ -42,7 +42,7 @@ This file contains two files:
     ## 20 09001 10200504  PM25-PRI     0.388 POINT 1999
     ## 24 09001 10200602  PM25-PRI     1.490 POINT 1999
 
-  - red: A five-digit number (represented as a string) indicating the
+  - fips:: A five-digit number (represented as a string) indicating the
     U.S. county
   - SCC: The name of the source as indicated by a digit string (see
     source code classification table)
