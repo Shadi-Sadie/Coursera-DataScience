@@ -100,5 +100,11 @@ plot(PowerData$Datetime, PowerData$Global_reactive_power, type = "l", ylab="Glob
 
 dev.off()
 
+### Extra Note : instead of ->
+# plot(PowerData$Datetime, PowerData$Global_reactive_power, type = "l", ylab="Global_reactive_power")
+# you can write the following to make the code shorter ->
+# with(PowerData, plot(Datetime,Global_reactive_power, type="l"))
+
+
 
 
