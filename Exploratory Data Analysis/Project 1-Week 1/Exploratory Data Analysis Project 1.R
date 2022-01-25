@@ -41,4 +41,17 @@ dev.off()
 
 # plot 2
 
-plot(PowerData$Datetime, PowerData$Global_active_power)
+jpeg("Plot results/plot2.jpg", width = 450, height = 450)
+
+plot(PowerData$Datetime, PowerData$Global_active_power, type = "l", 
+     ylab="Global Active Power(kilowatts)",
+     xlab=""
+     )
+dev.off()
+
+
+# plot 3
+
+
+
+
