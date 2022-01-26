@@ -3,6 +3,27 @@ Reproducible Research-Project 1
 Shadi
 1/26/2022
 
+## Loading necessary libraries
+
+``` r
+library(dplyr)
+```
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
+library(ggplot2)
+```
+
 ## Loading and preprocessing the data
 
 We start by reading the data and looking at the top row of it to find
@@ -71,9 +92,9 @@ Data is now ready for further analysis.
 
 ## What is mean total number of steps taken per day?
 
-### Calculation number of step per day
+### 1\. Making a Histogram of the total number of steps taken each day
 
-I would like to calculate the total steps in two diffrent way
+I would like to start by calculating the total steps in two diffrent way
 
   - first way
 
@@ -89,24 +110,14 @@ head(totalstep)
 
 The result of this code is an array of numbe while the result of the
 second way code is a data frame stepbydate with two variable of date and
-total step \* second way
+total step
+
+  - second way
+
+<!-- end list -->
 
 ``` r
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 Stepbyday<- activity %>% group_by(date) %>% summarise(totalstep=sum(steps))
 head(Stepbyday)
 ```
@@ -121,16 +132,16 @@ head(Stepbyday)
     ## 5 2012-10-05     13294
     ## 6 2012-10-06     15420
 
-1.Histogram of the total number of steps taken each
-day
+Then using the caluclated total step I create the histogram
+plot
 
 ``` r
 hist(Stepbyday$totalstep,main="Histogram of the total number of steps taken each day", xlab="Total step", col = "Yellow")
 ```
 
-![](Reproducible-Research-Project-1_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](Reproducible-Research-Project-1_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-2.Mean and median total number of steps taken per day
+### 2\. Mean and median total number of steps taken per day
 
 ``` r
 mean(totalstep,na.rm=TRUE)
@@ -146,16 +157,10 @@ median(totalstep,na.rm=TRUE)
 
 ## What is the average daily activity pattern?
 
-1.Make a time series plot (i.e. type = “l”) of the 5-minute interval
-(x-axis) and the average number of steps taken, averaged across all days
-(y-axis)
+### 1\. Makeing a time series plot (i.e. type = “l”) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-### Creating the data frame needed for plot time-series
-
-1.  find average number of step per day for y-axis of
+first we start by finding average number of step per day for y-axis of
 plot
-
-<!-- end list -->
 
 ``` r
 avgstep<- activity %>% group_by(interval) %>% na.omit()  %>% summarise(totalstep=mean(steps))
@@ -172,21 +177,18 @@ head(avgstep)
     ## 5       20    0.0755
     ## 6       25    2.09
 
-2.  create a time series
+then we create a time series
 graph
-
-<!-- end list -->
 
 ``` r
 with(avgstep,plot(interval,totalstep,type = "l",  main = "The average daily activity pattern"))
 ```
 
-![](Reproducible-Research-Project-1_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](Reproducible-Research-Project-1_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
-2.  Which 5-minute interval, on average across all the days in the
-    dataset, contains the maximum number of steps?
+### 2\. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
-<!-- end list -->
+The result is as follows
 
 ``` r
 avgstep[which.max(avgstep$totalstep),]
@@ -197,11 +199,11 @@ avgstep[which.max(avgstep$totalstep),]
     ##      <int>     <dbl>
     ## 1      835      206.
 
+Interval 835 has the maximum number of steps which equals to 206
+
 ## Imputing missing values
 
-1.  Calculate and report the total number of missing values
-
-<!-- end list -->
+### 1\. Calculateion and reporting of the total number of missing values
 
 ``` r
 sum(is.na(activity$steps))
@@ -209,20 +211,24 @@ sum(is.na(activity$steps))
 
     ## [1] 2304
 
-2.  Devise a strategy for filling in all of the missing values in the
-    datase
+\#\#\# 2. Deviseing a strategy for filling in all of the missing values
+in the datase
 
-As a strategy I will replace NA with the average of steps of the day
+My strategy here is to replace NA with the average of steps , to do so I
+will create a meansteps which contains the avergae value of
+steps.
 
 ``` r
 meansteps=mean(activity$step,na.rm=TRUE)
 ```
 
-3.  Create a new dataset that is equal to the original dataset but with
-    the missing data filled in.
+### 3\. Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
-To prevent any problem I will create a copy of activity data set and
-impute NA on that one
+To prevent any future problem and to compare the diffrence between
+imputed and not impluted dataset I will create a copy of activity data
+set and will call it stepdata. Afterward, I will continue by replacing
+the missing values with the average step value, calculated in previous
+chunck.
 
 ``` r
 stepdata<-activity
@@ -230,7 +236,7 @@ stepdata<-activity
 stepdata$steps<-replace(stepdata$steps, is.na(stepdata$steps), meansteps)
 ```
 
-checkin if the new dataset have missing values
+Finally, I check if the new dataset have missing values
 
 ``` r
 sum(is.na(stepdata$steps))
@@ -238,24 +244,30 @@ sum(is.na(stepdata$steps))
 
     ## [1] 0
 
-4.  Calculate Histogram,mean,median total number of step per day for new
-    data.frame
+Taaa Daaa everything is good
+
+\#\#\# 4. Calculate Histogram,mean,median total number of step per day
+for new data.frame
+
+1)  Histogram of the new data
 
 <!-- end list -->
 
 ``` r
-library(ggplot2)
 newtotalstep<-tapply(stepdata$steps,stepdata$date,sum)
 
 newtotalstep<- stepdata %>% group_by(date) %>% summarise(totalstep=sum(steps))
 
+
 hist(newtotalstep$totalstep, xlab = "number of steps",
-      main = "total number of steps taken per day")
+      main = "total number of steps taken per day", col="green")
 ```
 
-![](Reproducible-Research-Project-1_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](Reproducible-Research-Project-1_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
-The new mean and median are as follow
+2)  new mean and median are as follow
+
+<!-- end list -->
 
 ``` r
 mean(newtotalstep$totalstep,na.rm=TRUE)
@@ -269,49 +281,86 @@ median(newtotalstep$totalstep,na.rm=TRUE)
 
     ## [1] 10766.19
 
-Next, we caclute the diffrence between the new and old mean and
+3)  diffrence between the new and old mean and
 median
+
+<!-- end list -->
 
 ``` r
 meandif<- mean(totalstep,na.rm=TRUE)-mean(newtotalstep$totalstep,na.rm=TRUE)
 meddif<-median(totalstep,na.rm=TRUE)-median(newtotalstep$totalstep,na.rm=TRUE)
 
-print("diffrence in mean is", meandif)
+paste("diffrence in mean is", meandif)
 ```
 
-    ## [1] "diffrence in mean is"
+    ## [1] "diffrence in mean is 0"
 
-#### As we can see the mean is the same as when we didn’t substitue the NA variable,
+``` r
+paste("diffrence in median is", meddif)
+```
 
-#### but the median has slightly changed. our new median is equall to are mean.
+    ## [1] "diffrence in median is -1.1886792452824"
+
+As we can see the mean is the same as when we didn’t substitue the NA
+variable,but the median has slightly changed. our new median is equall
+to are
+mean.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-1.  Create new variable in the new data set with filled in missing
-    value.
+### 1\. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
-{r, echo=TRUE} week\<-weekdays(as.POSIXlt(activity$date)) week\<-ifelse
-((week ==“Sunday” | week ==“Saturday”) ,“weekend”, “weekday”)
-newactivity\<-data.frame(cbind(newactivity,week))
+Usin g the weekday function I will frist create a new charachter
+variable weekday which containt the weekday name. Then using this
+weekday variable I will create a factor variable called day indicator
+which indicate wether that day is weekend or weekday
 
-2.  Make a panel plot containing a time series plot
+``` r
+stepdata$weekday<-weekdays(stepdata$date)
+stepdata$dayindicator<-ifelse(stepdata$weekday %in% c("Sunday","Saturday"),0,1)
+stepdata$dayindicator<- ordered(stepdata$dayindicator,
+                          levels = c(0,1),
+                          labels = c("Weekend","Weekday"))
+
+head(stepdata,3)
+```
+
+    ##     steps       date interval weekday dayindicator
+    ## 1 37.3826 2012-10-01        0  Monday      Weekday
+    ## 2 37.3826 2012-10-01        5  Monday      Weekday
+    ## 3 37.3826 2012-10-01       10  Monday      Weekday
+
+### 2\. Make a panel plot containing a time series plot
+
+1.  build the new variable avrage step per
+day
 
 <!-- end list -->
 
-1.  build the new variable avrage step per day
+``` r
+panelstepdata<- stepdata %>% group_by(interval,dayindicator) %>% summarise(tSteps=mean(steps))
+```
 
-{r, echo=TRUE}
-avgsteptaken\<-tapply(newactivity\(steps,newactivity\)interval,mean,na.rm=TRUE)
-newactivity\<-data.frame(cbind(avgsteptaken, newactivity)) \`
+    ## `summarise()` has grouped output by 'interval'. You can override using the `.groups` argument.
 
-2.  two time series graph for weekday no weekend
+``` r
+head(panelstepdata,3)
+```
 
-{r, echo=TRUE}
+    ## # A tibble: 3 x 3
+    ## # Groups:   interval [2]
+    ##   interval dayindicator tSteps
+    ##      <int> <ord>         <dbl>
+    ## 1        0 Weekend        4.67
+    ## 2        0 Weekday        7.01
+    ## 3        5 Weekend        4.67
 
-png(“Plots/plot3.png”, width=600, height=600)
+two time series graph for weekday no weekend
 
-par(mfrow=c(2,1))
-plot(newactivity\(interval, subset(newactivity,week="weekdat")\)avgsteptaken,type
-= “l”)
-plot(newactivity\(interval, subset(newactivity,week="weekend")\)avgsteptaken,type
-= “l”)
+``` r
+g<- ggplot(panelstepdata, aes(interval,tSteps,panelstepdata))
+g+geom_line(col= "darkblue")+facet_grid(dayindicator~.)+labs(y= "Number of steps")+
+theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank())
+```
+
+![](Reproducible-Research-Project-1_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
