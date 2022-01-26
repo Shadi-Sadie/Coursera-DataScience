@@ -30,8 +30,7 @@ b<-grep("mean|std" , names(data))
 teadydata<-data[,c(1,563,b)]
 
 ##3- Uses descriptive activity names to name the activities in the data set
-table(bdata$Activity)
-teadydata$Activity<- ordered(bdata$Activity,
+teadydata$Activity<- ordered(teadydata$Activity,
                          levels = c(1,2,3,4,5,6),
                          labels = c("WALKING",
                                      "WALKING_UPSTAIRS",
@@ -40,7 +39,6 @@ teadydata$Activity<- ordered(bdata$Activity,
                                      "STANDING",
                                     "LAYING"
                          ))
-teadydata<-bdata
 
 ## 4- Appropriately labels the data set with descriptive variable names. 
 

@@ -2,7 +2,7 @@
 title: "Exploratory Data analysis-Project 1--Instructions"
 author: "Shadi"
 date: "1/20/2022"
-output: html_document
+output: github_document
 ---
 
 This assignment uses data from the [UC Irvine Machine Learning Repository](http://archive.ics.uci.edu/ml/index.php),a popular repository for machine learning datasets. In particular, we will be using the “Individual household electric power consumption Data Set” which I have made available on the course web site:
