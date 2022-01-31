@@ -1,0 +1,12 @@
+name: Prediction
+title: Prediction
+username:
+account: shadis
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2538451
+bundleId: 3355065
+url: https://shadis.shinyapps.io/Prediction/
+when: 1593976791.20021
+asMultiple: FALSE
+asStatic: FALSE
