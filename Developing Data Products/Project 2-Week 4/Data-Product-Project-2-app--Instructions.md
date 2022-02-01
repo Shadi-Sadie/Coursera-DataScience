@@ -59,8 +59,10 @@ Here’s what you need
     text box
 
 > Here is the link to my presentation  
-> \* [title](https://www.example.com) \*
-> [title](https://www.example.com)
+> \*
+> [Presentation 1](https://shadi-sadie.github.io/Coursera-DataScience/Developing%20Data%20Products/Project%202-Week%204/Data-Product-Project2-Presentation.html#1)
+> \*
+> [Presentation 2](https://shadi-sadie.github.io/Coursera-DataScience/Developing%20Data%20Products/Project%202-Week%204/MyappPresent.html#/)
 
 Your presentation must satisfy the following
 
