@@ -1,0 +1,28 @@
+---
+title: "R product project"
+author: "Shadi"
+date: "1/31/2022"
+output: html_document
+---
+
+## This map shows the location of where I got engaged 
+
+
+
+```{r , echo=FALSE}
+library(leaflet)
+library(maps)
+
+engagedIcon <- makeIcon(
+    iconUrl = "https://cdn1.iconfinder.com/data/icons/wedding-lineal-color-set/512/Wedding_Rings_Phing-1024.png", iconWidth = 31*215/230, iconHeight = 31,
+iconAnchorX = 31*215/230/2, iconAnchorY = 16
+)
+
+
+map <-leaflet()%>%
+addTiles() %>%
+addMarkers( lat= 37.72674913976929, lng= -119.62871137940337,icon= engagedIcon, popup="Got engaged here!" ) 
+
+map
+
+```
