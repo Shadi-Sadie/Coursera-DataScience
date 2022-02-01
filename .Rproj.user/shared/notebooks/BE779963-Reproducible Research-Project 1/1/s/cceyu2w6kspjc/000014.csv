@@ -1,0 +1,2 @@
+"0","hist(Stepbyday$totalstep,main=""Histogram of the total number of steps taken each day"", xlab=""Total step"", col = ""Yellow"")"
+"0",""

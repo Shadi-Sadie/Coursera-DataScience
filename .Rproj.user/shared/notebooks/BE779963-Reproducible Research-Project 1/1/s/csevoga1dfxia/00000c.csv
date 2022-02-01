@@ -1,0 +1,3 @@
+"0","library(dplyr)"
+"0","Stepbyday<- activity %>% group_by(date) %>% summarise(totalstep=sum(steps))"
+"0","head(Stepbyday)"

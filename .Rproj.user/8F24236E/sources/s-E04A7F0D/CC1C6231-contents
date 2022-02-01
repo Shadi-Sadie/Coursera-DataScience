@@ -1,0 +1,21 @@
+data("USArrests")
+
+USArrests %>%
+    leaflet() %>%
+    addTiles() %>%
+    addMarkers(clusterOptions = markerClusterOptions())
+
+library(leaflet)
+library(maps)
+
+engagedIcon <- makeIcon(
+    iconUrl = "https://cdn1.iconfinder.com/data/icons/wedding-lineal-color-set/512/Wedding_Rings_Phing-1024.png", iconWidth = 31*215/230, iconHeight = 31,
+iconAnchorX = 31*215/230/2, iconAnchorY = 16
+)
+
+
+map <-leaflet()%>%
+addTiles() %>%
+addMarkers( lat= 37.72674913976929, lng= -119.62871137940337,icon= engagedIcon, popup="Got engaged here!" ) 
+map
+

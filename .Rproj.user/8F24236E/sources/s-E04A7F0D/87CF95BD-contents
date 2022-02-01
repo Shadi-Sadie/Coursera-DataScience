@@ -1,0 +1,161 @@
+---
+title: "Regression Models Project"
+author: "Shadi"
+date: "5/8/2020"
+output: pdf_document
+#classoption:
+#- twocolumn
+
+---
+
+```{r, echo=FALSE,message=FALSE}
+ 
+library(jtools)
+library(lemon)
+library(huxtable)
+library(ggplot2)
+library(ggcorrplot)
+
+```
+ 
+## Summary 
+    
+The purpose of analysis is to explore which kind of transmission is better for MPG and to quantify the diffrence between the two kind of transmission.In order to answer these questions exploratory data analysis performed , and we used hypothesis testing and linear regression as methodologies to make inference.  we then established both simple and multivariate linear regression analysis. However the result of the multivariable regression model is more promising as it includes the potential effect of other variables on MPG. Finally,we concluded that the manual car are better in terms of MPG as they have a higher MPG compared to autamtic car.
+see the Appenxix for full Model Summary and diagnostics.
+
+## Data
+The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models). description for variable can be find in appendix
+
+
+
+```{r, echo=FALSE,render=lemon_print}
+
+head(mtcars,n=3)
+
+
+
+```
+
+looking at the data we see 11 variables with all numeric value. 
+
+Our variables of intrest here are 1. transmition (am) which form the information provided about the data we know that it take  value 1 for manual and 0 for automatic. 2. MPG (mile per gallon). 
+ 
+Visualzing MPG by the vilon plot over two value of transmition would give us a good idea for our future hypothesis testing. (plot 1, appendix)
+It appears that automatic cars have a lower miles per gallon, and therefore a lower fuel efficiency, than manual cars do. But it is possible that this apparent pattern happened by random chance- that is, that we just happened to pick a group of automatic cars with low efficiency and a group of manual cars with higher efficiency. So to check whether that’s the case, we have to use a statistical test.
+
+In order to determine the relationship between the variables, and to findout which variables should be included in our model, we perform a correlation test and create a correlation heat map (plot 2, appendix). 
+
+Finally we take a look at the distribution of mpg to check if it look like normal. (plot 3, appendix)
+
+## Analyis 
+
+To addres the first question we run a simple t-test cheking if the automatic cars have a lower miles per gallon. our null hypothesis is: "there is no diffrenct between the two transmition"
+
+```{r, echo=FALSE,render=lemon_print}
+
+test<-t.test(mpg ~ am, data= mtcars, var.equal = FALSE, paired=FALSE ,conf.level = .95)
+result <- data.frame( "t-statistic"  = test$statistic, 
+                      "df" = test$parameter,
+                      "p-value"  = test$p.value,
+                      "lower CL" = test$conf.int[1],
+                      "upper CL" = test$conf.int[2],
+                      "automatic mean" = test$estimate[1],
+                      "manual mean" = test$estimate[2],
+                      row.names = "")
+#knitr::kable(
+result
+#)
+```
+
+Here the p-value is 0.001 meaning that we can reject the null.
+
+quantifying the diffrence between the two transmission,we need to have a proper model, we conduct both simple linear and multivariable linear regression, and select the best model, to have the most accurate predicton 
+
+```{r, echo=FALSE}
+
+LM <- lm(mpg ~ am , data=mtcars)
+#summ(LM, model.info = FALSE)
+
+Multi = lm(data = mtcars, mpg~.)
+Best <- (step(Multi,trace=0))
+```
+
+```{r, echo=FALSE,message=FALSE}
+export_summs(Best, LM, scale = TRUE,error_format = "[{conf.low}, {conf.high}]",robust = TRUE)
+```
+
+In table below we can see that for linear regression, both intercept and transmission are significant.and the model shows that mpg for manual car are 7.25 scale higher than autmatic, but the value of the R2: 0.35  is low. 
+For the multivariable linear regression, all the variable are significant and the R2 is near 1 which means that it is a better model compared to linear one.
+
+
+# Model selection
+As we see erlier almost all of other variables have high correlation with MPG so in order to have a good predicter in our model using a stepwise selection method 
+which consists of iteratively adding and removing predictors for find the subset of variables in the data set resulting in the best performing model would be best move. folowing code autamticly give us the best model
+
+for selecting the best model one way is to look at the R2 value but to have a better result we conduct a likelihood ratio test and compare the two models.
+
+
+```{r, echo=FALSE,render=lemon_print}
+#knitr::kable(
+ anova(LM,Best)
+#)
+```
+
+Finally, in order to intrepret the result we must make sure that the error dosen't have hetroskesaticity and colinearity this can be find at appandix(Plot 4). 
+
+## Conclusion
+
+
+Using model contruction, we have shown that, adjusted to other strong mpg predictors that we can find in the mtcars dataset, manual transmission is really the best transmission for mpg with mmpg=9.61+2.93 amManual-3.91 wt +1.22 qsec
+
+## Appendix 
+
+residual plot and some diagnostics
+
+### data description
+
+1-**mpg**:	Miles/(US) gallo 2-**cyl**:	Number of cylinders 3-**disp**:	Displacement (cu.in.)	4-**hp**:	Gross horsepower 5-**drat**: Rear axle ratio 6-	**wt**:	Weight (1000 lbs) 7-**qsec**:	1/4 mile time
+ 8-	**vs**:	Engine (0 = V-shaped, 1 = straight)
+9-**am**:Transmission (0 = automatic, 1 = manual)
+10-**gear**:	Number of forward gears
+11-	**carb**:	Number of carburetors
+
+### plot 1
+
+```{r, echo=FALSE,out.width = '80%',fig.align = "center"}
+
+g<-ggplot (data = mtcars,aes(factor(am), mpg, fill=factor(am)))+ geom_violin(trim=FALSE)
+   # +labs(title="Plot of mpg by transmission",x= "Transmission", y = "Mile per Gallon")
+b<-g+geom_boxplot(width=0.1,fill="white")
+b+ scale_fill_manual(values=c("yellow", "green"),name="Transmission", breaks= c("0","1"),labels=c("automatic", "manual")) 
+
+```
+
+### plot 2
+
+```{r, echo=FALSE, out.width = '80%',  fig.align = "center"}
+
+corr <- round(cor(mtcars), 1)
+ggcorrplot(corr,colors = c("chartreuse4", "greenyellow", "khaki1"), lab=TRUE)
+
+
+```
+
+### plot 3
+
+```{r, echo=FALSE,out.width = '80%',fig.align = "center",message=FALSE}
+
+qplot(x=mpg,data=mtcars,fill= I("yellow") ,colour="white")
+
+
+```
+
+
+### plot 4
+
+```{r, echo=FALSE}
+
+par(mfrow=c(2,2))    
+plot(Best)
+
+```

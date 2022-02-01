@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1643674161826.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "7B6F3FE1",
+    "lastKnownWriteTime" : 1643675024,
+    "last_content_update" : 1643675024181,
+    "path" : "~/Desktop/R/Coursera-DataScience/Developing Data Products/Project1-Week2/Version 2/Data Product-Project 1.Rmd",
+    "project_path" : "Developing Data Products/Project1-Week2/Version 2/Data Product-Project 1.Rmd",
+    "properties" : {
+        "cursorPosition" : "6,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled2"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

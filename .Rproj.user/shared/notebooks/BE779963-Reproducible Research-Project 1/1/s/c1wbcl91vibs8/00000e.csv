@@ -1,0 +1,4 @@
+"0",""
+"0",""
+"0",""
+"0","with(avgstep,plot(interval,totalstep,type = ""l"",  main = ""The average daily activity pattern""))"

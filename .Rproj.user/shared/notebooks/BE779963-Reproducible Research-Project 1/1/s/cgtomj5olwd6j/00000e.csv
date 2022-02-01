@@ -1,0 +1,2 @@
+"0","avgstep<- activity %>% group_by(interval) %>% na.omit()  %>% summarise(totalstep=mean(steps))"
+"0","head(avgstep)"

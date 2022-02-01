@@ -1,0 +1,2 @@
+"0","activity <-read.csv(file=""data/activity.csv"")"
+"0","head(activity)"

@@ -1,0 +1,5 @@
+"0","  "
+"0","panelstepdata<- stepdata %>% group_by(interval,dayindicator) %>% summarise(tSteps=mean(steps))"
+"2","`summarise()` has grouped output by 'interval'. You can override using the `.groups` argument.
+"
+"0","head(panelstepdata,3)"

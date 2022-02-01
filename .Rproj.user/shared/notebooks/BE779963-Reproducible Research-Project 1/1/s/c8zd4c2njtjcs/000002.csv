@@ -1,0 +1,3 @@
+"0",""
+"0","meansteps=mean(activity$step,na.rm=TRUE)"
+"0",""

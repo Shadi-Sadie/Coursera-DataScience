@@ -1,0 +1,41 @@
+---
+title: "Plotly Project"
+author: "Shadi"
+date: "5/27/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+library(plotly)
+
+```
+
+## R Markdown
+
+In this project, are aim is to produce an interactive plot using plotly
+
+## Slide about data
+
+### Data 
+
+Our data is from Longley data set package provide by R.
+It is a data frame with 7 economical variables, observed yearly from 1947 to 1962.
+Our plot shows the inflation rate and number of unemployed
+
+## Slide with Plot
+
+```{r , echo = FALSE}
+
+
+data(longley)
+
+plot_ly(longley, x=~Year)%>%
+add_lines(y = ~GNP.deflator, name="Inflation") %>%
+add_lines(y = ~Unemployed, name="Unemplpyed") 
+
+```
+
+
+
+
+

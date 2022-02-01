@@ -1,0 +1,5 @@
+"0",""
+"0","g<- ggplot(panelstepdata, aes(interval,tSteps,panelstepdata))"
+"0","g+geom_line(col= ""darkblue"")+facet_grid(dayindicator~.)+labs(y= ""Number of steps"")+"
+"0","theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank())"
+"0",""

@@ -1,0 +1,6 @@
+"0",""
+"0","stepdata<-activity"
+"0",""
+"0","stepdata$steps<-replace(stepdata$steps, is.na(stepdata$steps), meansteps)"
+"0","        "
+"0",""

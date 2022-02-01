@@ -1,0 +1,8 @@
+"0",""
+"0","stepdata$weekday<-weekdays(stepdata$date)"
+"0","stepdata$dayindicator<-ifelse(stepdata$weekday %in% c(""Sunday"",""Saturday""),0,1)"
+"0","stepdata$dayindicator<- ordered(stepdata$dayindicator,"
+"0","                          levels = c(0,1),"
+"0","                          labels = c(""Weekend"",""Weekday""))"
+"0",""
+"0","head(stepdata,3)"
